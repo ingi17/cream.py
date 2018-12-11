@@ -9,7 +9,7 @@ folders = []
 path = []
 
 for (dirpath, dirnames, fnames) in walk(folder):
-    filenames.extend(filenames)
+    filenames.extend(fnames)
     folders.extend(dirnames)
     path.append(dirpath)
 
