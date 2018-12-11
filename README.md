@@ -34,11 +34,11 @@ until finished
 End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
-- [ ] Lokið
+- [ ] Lokið <br />
 Explain how to run the automated tests for this system
 
 ### Break down into end to end tests
-- [ ] Lokið
+- [ ] Lokið <br />
 Explain what these tests test and why
 
 ```
@@ -46,7 +46,7 @@ Give an example
 ```
 
 ### And coding style tests
-- [ ] Lokið
+- [ ] Lokið <br />
 Explain what these tests test and why
 
 ```
@@ -54,21 +54,21 @@ Give an example
 ```
 
 ## Deployment
-- [ ] Lokið
+- [ ] Lokið <br />
 Add additional notes about how to deploy this on a live system
 
 ## Built With
-- [ ] Lokið
+- [ ] Lokið <br />
 * [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
 ## Contributing
-- [ ] Lokið
+- [ ] Lokið <br />
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
-- [ ] Lokið
+- [ ] Lokið <br />
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
@@ -78,11 +78,11 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 * **Magnús Freyr Sveinsson** - *Role*
 
 ## License
-- [ ] Lokið
+- [ ] Lokið <br />
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
-- [ ] Lokið
+- [ ] Lokið <br />
 * Hat tip to anyone whose code was used
 * Inspiration
 * etc
