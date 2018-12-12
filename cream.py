@@ -1,4 +1,5 @@
 import sys
+import re
 from os import walk
 
 folder = sys.argv[1]
@@ -17,23 +18,17 @@ def setlists(folder):
 setlists(folder)
 
 def getSeries(fnames):
-    names = []
-    for f in fnames:
-        keyword = "s0"
-        if keyword in f.lower():
-            names.append(f.lower().split(keyword,1)[0])
-        
-        keyword = "s1"
-        if keyword in f.lower():
-            names.append(f.lower().split(keyword,1)[0])
+    regex = re.compile('((s|S)\d+)|(\d+(x|X)\d{1,2})|((e|E)\d+)|((S|s)eason (\d+|I+))')
+    names = filter(regex.search, fnames)
 
-        keyword = "season"
-        if keyword in f.lower():
-            names.append(f.lower().split(keyword,1)[0])
-    return names
+    nlist = []
+    for f in names:
+        nlist.append(regex.split(f)[0])
+    return nlist
 
 names = getSeries(filenames)
 names = list(set(names))
+names.sort()
 
 print(names)
 # keyra i gegnum lista og finna nöfn þátta út frá keyword "season"
