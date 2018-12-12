@@ -10,13 +10,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Authors
 - [x] Lokið
-- [ ] bæta við Role
-* **Ingi Þór Aðalsteinsson** - *Role*
-* **Magnús Freyr Sveinsson** - *Role*
-
-## License
-- [ ] Lokið <br />
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+* **Ingi Þór Aðalsteinsson**
+* **Magnús Freyr Sveinsson**
 
 ## Acknowledgments
 - [ ] Lokið <br />
