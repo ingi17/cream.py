@@ -3,7 +3,7 @@ import re
 from os import walk
 
 folder = sys.argv[1]
-#target = sys.argv[2]
+target = sys.argv[2]
 
 filenames = []
 folders = []
@@ -17,20 +17,33 @@ def setlists(folder):
 
 setlists(folder)
 
+
 def getSeries(fnames):
-    regex = re.compile('((s|S)\d+)|(\d+(x|X)\d{1,2})|((e|E)\d+)|((S|s)eason (\d+|I+))')
+    regex = re.compile('((s|S)\d{1,2})|(\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))')
     names = filter(regex.search, fnames)
 
     nlist = []
+    chars = ['.', '-', '[']
     for f in names:
-        nlist.append(regex.split(f)[0])
-    return nlist
+        show = regex.split(f)[0]
 
-names = getSeries(filenames)
-names = list(set(names))
-names.sort()
+        for c in chars:
+            show = show.replace(c, ' ')
 
-print(names)
+        nlist.append(show.strip())
+
+    shows = list(set(nlist))
+    shows.sort()
+
+    return shows
+
+print(getSeries(filenames))
+
+
+def makeDirs():
+    return 0
+
+
 # keyra i gegnum lista og finna nöfn þátta út frá keyword "season"
 # keyword "sxx"
 # keyword "sxxexx"
