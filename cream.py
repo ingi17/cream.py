@@ -14,15 +14,13 @@ def setLists(folder):
         folders.extend(dirnames)
         path.append(dirpath)
 
-setLists(folder)
-
 def ignoreFiles(file):
     if re.search(r'.png$|.dat$|.nfo$|.jpg$|.url$|.URL$|.txt$|(s|S)ample', file):
         return False
     return True
 
 def getSeries(fnames):
-    regex = re.compile(r'((s|S)\d{1,2})|(\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))')
+    regex = re.compile(r'((s|S)\d{1,2})|(\s\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))|(^|\s)\d{2,3}(\s|[*p])')
     names = filter(regex.search, fnames)
 
     nlist = []
@@ -51,4 +49,6 @@ def makeDirs(shows):
         if not os.path.exists(dirs):
             os.makedirs(dirs)
 
-makeDirs(getSeries(filenames))
+setLists(folder)
+print(getSeries(filenames))
+#makeDirs(getSeries(filenames))
