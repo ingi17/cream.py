@@ -16,10 +16,15 @@ def setLists(folder):
 
 setLists(folder)
 
-def ignoreFiles(file):
-    if re.search(r'.png$|.dat$|.nfo$|.jpg$|.url$|.URL$|.txt$|(s|S)ample', file):
+def fileExtensions(file):
+    if re.search(r'(s|S)ample', file):
         return False
-    return True
+    elif re.search(r'.mkv$|.flv$|.avi$|.wmv$|.mov$|.mp4$|.mpg$|.mpeg$|.nfv$|.mp3$', file):
+        return True
+    return False
+    #if re.search(r'.png$|.dat$|.nfo$|.jpg$|.url$|.URL$|.txt$|(s|S)ample', file):
+     #   return False
+    #return True
 
 def getSeries(fnames):
     regex = re.compile(r'((s|S)\d{1,2})|(\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))')
@@ -29,7 +34,7 @@ def getSeries(fnames):
     chars = ['.', '-', '[', '_']
 
     for f in names:
-        if ignoreFiles(f):
+        if fileExtensions(f):
             show = regex.split(f)[0]
             for c in chars:
                 show = show.replace(c, ' ')
@@ -39,7 +44,7 @@ def getSeries(fnames):
 
     shows = list(set(filter(None, nlist)))
     shows.sort()
-
+    print(len(shows))
     return shows
 
 def makeDirs(shows):
@@ -52,3 +57,4 @@ def makeDirs(shows):
             os.makedirs(dirs)
 
 makeDirs(getSeries(filenames))
+#print(getSeries(filenames))
