@@ -1,9 +1,8 @@
-import sys
-import re
+import sys, re, os
 from os import walk
 
 folder = sys.argv[1]
-#target = sys.argv[2]
+target = sys.argv[2]
 
 filenames = []
 folders = []
@@ -28,6 +27,7 @@ def getSeries(fnames):
 
     nlist = []
     chars = ['.', '-', '[', '_']
+
     for f in names:
         if ignoreFiles(f):
             show = regex.split(f)[0]
@@ -42,8 +42,13 @@ def getSeries(fnames):
 
     return shows
 
-print(getSeries(filenames))
+def makeDirs(shows):
+    if not os.path.exists(target):
+        os.makedirs(target)
 
+    for show in shows:
+        dirs = target + "/" + show + "/"
+        if not os.path.exists(dirs):
+            os.makedirs(dirs)
 
-def makeDirs():
-    return 0
+makeDirs(getSeries(filenames))
