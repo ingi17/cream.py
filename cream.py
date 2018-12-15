@@ -1,8 +1,8 @@
-import sys, re, os, json
+import sys, re, os, shutil
 from os import walk
 
 folder = sys.argv[1]
-#target = sys.argv[2]
+target = sys.argv[2]
 
 filenames = []
 folders = []
@@ -14,8 +14,6 @@ def setLists(folder):
         filenames.extend(fnames)
         folders.extend(dirnames)
         path.append(dirpath)
-
-setLists(folder)
 
 def fileExtensions(file):
     if re.search(r'(s|S)ample', file):
@@ -53,32 +51,31 @@ def getSeries(fnames):
     #print(len(shows))
     dictToTxt(dictoTest)
     listToTxt(dictoTest)
-    #return dictoTest
+    return dictoTest
     #return shows
 
 def makeDirs(shows):
+    print(path[5])
     if not os.path.exists(target):
         os.makedirs(target)
 
-    for show in shows:
-        dirs = target + "/" + show + "/"
+    for key in dictoTest:
+        dirs = target + "/" + key + "/"
         if not os.path.exists(dirs):
             os.makedirs(dirs)
+            #for i in dictoTest[key]:
+                #if i in path:
+                    #shutil.move(, dirs)
 
 def dictToTxt(dicto):
     with open('dictListi.txt', 'w') as file:
         for k, v in dicto.items():
             file.write(str(k) + ' >>> '+ str(v) + '\n\n')
-        #file.write(json.dumps(dicto))
-    #f = open('listi.txt', 'w+')
-    #for i in dicto:
-     #   print(i)
-      #  f.write(i)
-    #f.close()
+
 def listToTxt(listo):
     with open('keyListi.txt', 'w') as file:
         for k in listo:
             file.write(k + '\n\n')
 setLists(folder)
 print(getSeries(filenames))
-#makeDirs(getSeries(filenames))
+makeDirs(getSeries(filenames))
