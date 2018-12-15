@@ -15,7 +15,9 @@ def setLists(folder):
     for (dirpath, dirnames, fnames) in walk(folder):
         filenames.extend(fnames)
         folders.extend(dirnames)
-        path.append(dirpath)
+        
+        for file in fnames:
+            path.append(os.path.join(dirpath, file))
 
 def fileExtensions(file):
     if re.search(r'(s|S)ample', file):
@@ -54,7 +56,6 @@ def getSeries(fnames):
                     showDic[show].append(f) 
 
     dictToTxt(showDic)
-    listToTxt(showDic)
 
     return showDic
 
@@ -63,16 +64,18 @@ def makeDirs(showDic):
         os.makedirs(target)
 
     for key in showDic:
+
         dirs = target + "/" + key + "/"
 
         if not os.path.exists(dirs):
             os.makedirs(dirs)
-            
+
             for show in showDic[key]:
                 for i in path:
-                    if i.find(show):
-                        continue
-                        
+                    if show in i:
+                        #shutil.move(i, dirs)
+                        shutil.copy(i, dirs)
+                                    
 def dictToTxt(dicto):
     with open('dictListi.txt', 'w') as file:
         for k, v in dicto.items():
