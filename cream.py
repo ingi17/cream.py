@@ -55,7 +55,6 @@ def getSeries(fnames):
     #return shows
 
 def makeDirs(shows):
-    print(path[5])
     if not os.path.exists(target):
         os.makedirs(target)
 
@@ -63,9 +62,14 @@ def makeDirs(shows):
         dirs = target + "/" + key + "/"
         if not os.path.exists(dirs):
             os.makedirs(dirs)
-            #for i in dictoTest[key]:
-                #if i in path:
-                    #shutil.move(, dirs)
+            for show in dictoTest[key]:
+                #print(show)
+                for i in path:
+                    #print(show)
+                    if 'Person.of.Interest.S04E19.HDTV.x264-LOL[ettv]' in i:
+                        print(i)
+                  #  print(move)
+                #print(i)
 
 def dictToTxt(dicto):
     with open('dictListi.txt', 'w') as file:
@@ -77,5 +81,6 @@ def listToTxt(listo):
         for k in listo:
             file.write(k + '\n\n')
 setLists(folder)
-print(getSeries(filenames))
+#print(getSeries(filenames))
 makeDirs(getSeries(filenames))
+#print(path)
