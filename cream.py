@@ -44,13 +44,18 @@ def getSeries(fnames):
     
     #   Regex til að matcha við _ALLAR HELSTU_ týpur af Season nöfnum í skrám (Season 00, 00x00, S00E00, 00.00)
     regex = re.compile(r'((s|S)\d{1,2})|([^\d]\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))|([^\d,x,H]\d{3}([^\d,^p]|$))|(([^\d]|^)([0-1][0-8])\d{2}[^\d|^p])|(([^\d]|\d{4})[^\d](\d{1,2})\.\d{1,2}[^\d])')
+    #   Notum filter til að minnka settið sem við vinnum úr. Allar skrár 
     names = filter(regex.search, fnames)
 
+    #   Special characters til að tæma úr streng sem er notaður fyrir þáttarnafn
     chars = ['.', '-', '[', '_']
 
     for f in names:
         if fileExtensions(f):
+
             fLow = f.lower()
+
+            #   Þáttarnafn generateað frá fyrsta staki, eftir split á Season í filenafni
             show = regex.split(f)[0]
 
             #   Regex if setninga helvíti -
@@ -96,21 +101,21 @@ def getSeries(fnames):
             show = show.lower().strip()
             show = show.title()
             
+            #   Athugar hvort þáttarnafnið sé til og býr þá til key í dictið
             if show not in showDic:
                 showDic[show] = {}
+                #   Ef season nafnið fannst þá búum við til dict inn í dict með Þáttarnafninu >>> Season XX
                 if season:
                     showDic[show][season] = [f]
                 else:
                     showDic[show] = [f]
             
+            #   Ef þátturinn er núþegar til sem key í showDic, ef season lykillinn er ekki fundinn þá er hann búinn til annars stakinu bætt við undir
             elif show in showDic:
-                showDic[show]
                 if season not in showDic[show]:
                     showDic[show][season] = [f]
                 elif f not in showDic[show][season]:
                     showDic[show][season].append(f)
-
-    dictToTxt(showDic)
 
     return showDic
 
@@ -118,6 +123,8 @@ def makeDirs(showDic, target):
     if not os.path.exists(target):
         os.makedirs(target)
 
+    #   Lykkja sem býr til möppu út frá efsta lykli í dict.
+    #   Býr s.s. til þáttarnafns möppurnar.
     for key in showDic:
 
         dirs = target + '/' + key
@@ -125,12 +132,17 @@ def makeDirs(showDic, target):
         if not os.path.exists(dirs):
             os.makedirs(dirs)
 
+        #   Fyrir hvern lykil (season) undir efsta lykil (þáttur).
+        #   - Path skapað og season mappa sköpuð
         for keykey in showDic[key]:
             dirSeason = dirs + '/' + keykey
 
             if not os.path.exists(dirSeason):
                 os.makedirs(dirSeason)
 
+            #   Fyrir hvert einasta stak undir þætti >>> season
+            #   Borið saman við heildar path listann sem var skapaður í byrjun
+            #   Ef pathið finnst þá er skráin færð yfir í viðeigandi möppu undir þáttur >>> season
             for show in showDic[key][keykey]:
                 for i in path:
                     if show in i:
@@ -145,11 +157,8 @@ def dictToTxt(dicto):
         for k, v in dicto.items():
             file.write(str(k) + ' >>> '+ str(v) + '\n\n')
 
-def listToTxt(listo):
-    with open('keyListi.txt', 'w') as file:
-        for k in listo:
-            for kk in listo[k]:
-                file.write(k + '>>' + kk + '\n\n')
+#   GUI gert með tkinter.
+#   Smá skítamix þurfti til að koma variables frá browse tökkum yfir í parameter fyrir sort föll, þess vegna liggja globals hérna fyrir neðan
 
 global folder
 global target
@@ -205,7 +214,9 @@ def gui():
 
 gui()
 
-#print(setLists(folder))
-#print(getSeries(filenames))
-#print(makeDirs(getSeries(filenames)))
-#print(path)
+#---Gömul virkni fyrir skriptu án GUI
+#---
+# print(setLists(folder))
+# print(getSeries(filenames))
+# print(makeDirs(getSeries(filenames)))
+# print(path)
