@@ -8,7 +8,7 @@ One Paragraph of project description goes here
 - [x] Lokið <br />
 These instructions will help you get to get a copy of the project and required software to run the script on your local machine.
 
-###Prerequisites
+### Prerequisites
 - [x] Lokið <br />
 Install Python 3.7
 <br />
