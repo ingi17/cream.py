@@ -19,9 +19,6 @@ def setLists(folder):
         
         for file in fnames:
             path.append(os.path.normpath(os.path.join(dirpath, file)))
-            plsworkonwindows = os.path.join(dirpath, file)
-            Ibegyoupleasework = os.path.normpath(plsworkonwindows)
-            return Ibegyoupleasework
 
 def fileExtensions(file):
     if re.search(r'(s|S)ample', file):
@@ -78,7 +75,10 @@ def makeDirs(showDic):
                 for i in path:
                     if show in i:
                         #shutil.move(i, dirs)
-                        shutil.copy(i, dirs)
+                        try:
+                            shutil.copy(i, dirs)
+                        except Exception as ex:
+                            print(ex)
                                     
 def dictToTxt(dicto):
     with open('dictListi.txt', 'w') as file:
