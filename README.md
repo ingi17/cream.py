@@ -15,9 +15,13 @@ Install Python 3.7
 You can find instructions on how to install and set up python [here](https://realpython.com/installing-python/)
 <br />
 Download a Zip of the project from Github
+
 ## How to use the script
+
 - [x] Lokið <br />
+
 ### Windows
+
 Open Command Prompt:
 
 ```
