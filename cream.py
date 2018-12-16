@@ -1,9 +1,9 @@
-import sys
-import re
 import os
+import re
 import shutil
-from pathlib import Path, PureWindowsPath
+import sys
 from os import walk
+from pathlib import Path, PureWindowsPath
 
 folder = sys.argv[1]
 target = sys.argv[2]
@@ -33,6 +33,7 @@ def fileExtensions(file):
 
 def getSeries(fnames):
     showDic = {}
+    seasonNr = 0
     regex = re.compile(r'((s|S)\d{1,2})|(\s\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))|(^|\s)\d{2,3}(\s|[*p])')
     chars = ['.', '-', '[', '_']
     names = filter(regex.search, fnames)
@@ -41,7 +42,8 @@ def getSeries(fnames):
         if fileExtensions(f):
             
             show = regex.split(f)[0]
-            
+            season = re.findall(r's(\d{1,2})', f.lower())
+
             for c in chars:
                 show = show.replace(c, ' ')
                 show = re.sub('  +', ' ', show)
@@ -74,8 +76,8 @@ def makeDirs(showDic):
             for show in showDic[key]:
                 for i in path:
                     if show in i:
-                        #shutil.move(i, dirs)
                         try:
+                            #shutil.move(i, dirs)
                             shutil.copy(i, dirs)
                         except Exception as ex:
                             print(ex)
@@ -91,6 +93,6 @@ def listToTxt(listo):
             file.write(k + '\n\n')
 
 print(setLists(folder))
-#print(getSeries(filenames))
-print(makeDirs(getSeries(filenames)))
+print(getSeries(filenames))
+#print(makeDirs(getSeries(filenames)))
 #print(path)
