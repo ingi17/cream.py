@@ -135,8 +135,8 @@ def makeDirs(showDic, target):
                 for i in path:
                     if show in i:
                         try:
-                            #shutil.move(i, dirSeason)
-                            shutil.copy(i, dirSeason)
+                            shutil.move(i, dirSeason)
+                            #shutil.copy(i, dirSeason) # Copy frekar en move fyrir dev testing
                         except Exception as ex:
                             print(ex)
                                     
