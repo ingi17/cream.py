@@ -33,6 +33,7 @@ def fileExtensions(file):
 def getSeries(fnames):
     showDic = {}
     regex = re.compile(r'((s|S)\d{1,2})|([^\d]\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))|([^\d,x,H]\d{3}([^\d,^p]|$))|(([^\d]|^)([0-1][0-8])\d{2}[^\d|^p])|(([^\d]|\d{4})[^\d](\d{1,2})\.\d{1,2}[^\d])')
+    #OLD (held ég) regex = re.compile(r'((s|S)\d{1,2})|([^\d]\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))|([^\d]\d{3}([^\d|^p]|$))|(([^\d]|^)([0-1][0-8])\d{2}[^\d|^p])|(([^\d]|\d{4})[^\d](\d{1,2})\.\d{1,2}[^\d])')
     chars = ['.', '-', '[', '_']
     names = filter(regex.search, fnames)
 
@@ -101,6 +102,11 @@ def getSeries(fnames):
     dictToTxt(showDic)
 
     return showDic
+
+def getSeasonFolder(dirpaths):
+    #for filepath in path:
+        
+    return 0
 
 def makeDirs(showDic):
     if not os.path.exists(target):
