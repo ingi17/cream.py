@@ -64,16 +64,10 @@ def getSeries(fnames):
             
             elif show in showDic:
                 showDic[show]
-                #if season:
                 if season not in showDic[show]:
                     showDic[show][season] = [f]
                 elif f not in showDic[show][season]:
                     showDic[show][season].append(f)
-                #else:
-                    #if f not in showDic[show]:
-                    #    showDic[show].append(f) 
-                if f not in showDic[show][season]:
-                    showDic[show][season].append(f) 
 
     dictToTxt(showDic)
 
@@ -85,17 +79,24 @@ def makeDirs(showDic):
 
     for key in showDic:
 
-        dirs = target + "/" + key
+        dirs = target + '/' + key
+
 
         if not os.path.exists(dirs):
             os.makedirs(dirs)
 
-            for show in showDic[key]:
+        for keykey in showDic[key]:
+            dirSeason = dirs + '/' + keykey
+
+            if not os.path.exists(dirSeason):
+                os.makedirs(dirSeason)
+
+            for show in showDic[key][keykey]:
                 for i in path:
                     if show in i:
                         try:
-                            #shutil.move(i, dirs)
-                            shutil.copy(i, dirs)
+                            #shutil.move(i, dirSeason)
+                            shutil.copy(i, dirSeason)
                         except Exception as ex:
                             print(ex)
                                     
@@ -111,6 +112,6 @@ def listToTxt(listo):
                 file.write(k + '>>' + kk + '\n\n')
 
 print(setLists(folder))
-print(getSeries(filenames))
-#print(makeDirs(getSeries(filenames)))
+#print(getSeries(filenames))
+print(makeDirs(getSeries(filenames)))
 #print(path)
