@@ -26,7 +26,7 @@ next you must locate where the script is located by using the cd command:
 ```
 C:\Users\USER_NAME> cd PATH/TO/WHERE/THE/SCRIPT_IS
 ```
-Now you can run the file by typing python then the __name of the script__, then __full path to the folder to sort__ and then __full path on where to move the sort to__
+Now you can run the file by typing python then the name of the script, then full path to the folder to sort and then full path on where to move the sort to
 ```
 C:\Users\Notandi\Documents\Python\Hopaverkefni\cream.py> python cream.py C:\Users\USER_NAME\PATH\TO\FOLDER_TO_SORT\downloads C:\Users\USER_NAME\PATH\TO\WHERE\SORTED_FOLDER_SHOULD_BE
 ```
