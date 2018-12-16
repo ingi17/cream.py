@@ -34,11 +34,15 @@ next you must locate where the script is located by using the cd command:
 C:\Users\USER_NAME> cd PATH/TO/WHERE/THE/SCRIPT_IS
 ```
 
-Now you can run the file by typing python then the name of the script, then full path to the folder to sort and then full path on where to move the sort to
+Now you can run the file by typing python then the name of the script:
 
 ```
-C:\Users\Notandi\Documents\Python\Hopaverkefni\cream.py> python cream.py C:\Users\USER_NAME\PATH\TO\FOLDER_TO_SORT\downloads C:\Users\USER_NAME\PATH\TO\WHERE\SORTED_FOLDER_SHOULD_BE
+C:\Users\Notandi\Documents\Python\Hopaverkefni\cream.py> python cream.py
 ```
+
+1. Now you can select the folder you want to sort by pressing the sort button and locating that folder.
+2. Then you select where you want to move the sorted files to by pressing the target button and locating that folder.
+3. Finaly you press the sort button and wait until the proccess bar is complete.
 
 ### Mac, Linux, BSD, Unix, etc
 - [ ] Lokið <br />
