@@ -2,6 +2,7 @@ import sys
 import re
 import os
 import shutil
+from pathlib import Path, PureWindowsPath
 from os import walk
 
 folder = sys.argv[1]
@@ -17,7 +18,10 @@ def setLists(folder):
         folders.extend(dirnames)
         
         for file in fnames:
-            path.append(os.path.join(dirpath, file))
+            path.append(os.path.normpath(os.path.join(dirpath, file)))
+            plsworkonwindows = os.path.join(dirpath, file)
+            Ibegyoupleasework = os.path.normpath(plsworkonwindows)
+            return Ibegyoupleasework
 
 def fileExtensions(file):
     if re.search(r'(s|S)ample', file):
@@ -65,7 +69,7 @@ def makeDirs(showDic):
 
     for key in showDic:
 
-        dirs = target + "/" + key + "/"
+        dirs = target + "/" + key
 
         if not os.path.exists(dirs):
             os.makedirs(dirs)
@@ -86,7 +90,7 @@ def listToTxt(listo):
         for k in listo:
             file.write(k + '\n\n')
 
-setLists(folder)
+print(setLists(folder))
 #print(getSeries(filenames))
 print(makeDirs(getSeries(filenames)))
 #print(path)
