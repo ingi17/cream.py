@@ -19,15 +19,20 @@ Download a Zip of the project from Github
 - [x] Lokið <br />
 ### Windows
 Open Command Prompt:
-```sh
+
+```
 press the Windows logo or the Windows key and type command prompt or cmd
 ```
+
 next you must locate where the script is located by using the cd command:
-```sh
+
+```
 C:\Users\USER_NAME> cd PATH/TO/WHERE/THE/SCRIPT_IS
 ```
+
 Now you can run the file by typing python then the name of the script, then full path to the folder to sort and then full path on where to move the sort to
-```sh
+
+```
 C:\Users\Notandi\Documents\Python\Hopaverkefni\cream.py> python cream.py C:\Users\USER_NAME\PATH\TO\FOLDER_TO_SORT\downloads C:\Users\USER_NAME\PATH\TO\WHERE\SORTED_FOLDER_SHOULD_BE
 ```
 
