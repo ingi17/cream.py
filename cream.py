@@ -221,5 +221,5 @@ gui()
 #---
 # print(setLists(folder))
 # print(getSeries(filenames))
-# print(makeDirs(getSeries(filenames)))
+# print(makeDirs(getSeries(filenames), target))
 # print(path)
