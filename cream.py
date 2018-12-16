@@ -2,14 +2,54 @@ import os
 import re
 import shutil
 import sys
+import tkinter
+from tkinter import ttk, filedialog
 from os import walk
 
-folder = sys.argv[1]
-target = sys.argv[2]
+#folder = sys.argv[1]
+#target = sys.argv[2]
 
 filenames = []
 folders = []
 path = []
+
+
+def gui():
+
+    root = tkinter.Tk()
+    root.geometry('320x120')
+    root.title('cream.py')
+    
+    buttonFrame = tkinter.Frame(root)
+    srcFrame = tkinter.Frame(root)
+    tarFrame = tkinter.Frame(root)
+    src = tkinter.Label(srcFrame)
+    tar = tkinter.Label(tarFrame)
+
+    def browseSrc():
+        folder = filedialog.askdirectory()
+        src.config(text=folder)
+    
+    def browseTar():
+        target = filedialog.askdirectory()
+        tar.config(text=target)
+
+    progress = ttk.Progressbar(root, length=300, mode='determinate')
+    sortButton = tkinter.Button(buttonFrame, text='Sort!')
+    srcButton = tkinter.Button(srcFrame, text='Browse', command=browseSrc)
+    tarButton = tkinter.Button(tarFrame, text ='Browse', command=browseTar)
+
+    srcFrame.pack(expand=1)
+    tarFrame.pack(expand=1)
+    buttonFrame.pack(expand=1)
+    srcButton.pack(side='left')
+    tarButton.pack(side='left')
+    progress.pack()
+    sortButton.pack()
+    src.pack(side='left')
+    tar.pack(side='right')
+
+    root.mainloop()
 
 def setLists(folder):
     for (dirpath, dirnames, fnames) in walk(folder):
@@ -103,12 +143,7 @@ def getSeries(fnames):
 
     return showDic
 
-def getSeasonFolder(dirpaths):
-    #for filepath in path:
-        
-    return 0
-
-def makeDirs(showDic):
+def makeDirs(showDic, target):
     if not os.path.exists(target):
         os.makedirs(target)
 
@@ -145,7 +180,12 @@ def listToTxt(listo):
             for kk in listo[k]:
                 file.write(k + '>>' + kk + '\n\n')
 
-print(setLists(folder))
+gui()
+def Sort(folder, target):
+    setLists(folder)
+    makeDirs(getSeries(filenames), target)
+    
+#print(setLists(folder))
 #print(getSeries(filenames))
-print(makeDirs(getSeries(filenames)))
+#print(makeDirs(getSeries(filenames)))
 #print(path)
