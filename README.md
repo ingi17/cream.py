@@ -26,7 +26,7 @@ Open Command Prompt:
 press the Windows logo or the Windows key and type command prompt or cmd
 ```
 
-next you must locate where the script is located by using the cd command:
+Next you must locate where the script is located by using the cd command:
 
 ```
 C:\Users\USER_NAME> cd PATH/TO/WHERE/THE/SCRIPT_IS
@@ -45,7 +45,7 @@ C:\Users\Notandi\Documents\Python\Hopaverkefni\cream.py> python cream.py
 ### Mac, Linux, BSD, Unix, etc
 Open Teminal. <br />
 
-next you must locate where the script is located by using the cd command:
+Next you must locate where the script is located by using the cd command:
 
 ```
 C:\Users\USER_NAME> cd PATH/TO/WHERE/THE/SCRIPT_IS
