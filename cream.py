@@ -32,7 +32,7 @@ def fileExtensions(file):
 
 def getSeries(fnames):
     showDic = {}
-    regex = re.compile(r'((s|S)\d{1,2})|([^\d]\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))|([^\d]\d{3}([^\d|^p]|$))|(([^\d]|^)([0-1][0-8])\d{2}[^\d|^p])|(([^\d]|\d{4})[^\d](\d{1,2})\.\d{1,2}[^\d])')
+    regex = re.compile(r'((s|S)\d{1,2})|([^\d]\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))|([^\d,x,H]\d{3}([^\d,^p]|$))|(([^\d]|^)([0-1][0-8])\d{2}[^\d|^p])|(([^\d]|\d{4})[^\d](\d{1,2})\.\d{1,2}[^\d])')
     chars = ['.', '-', '[', '_']
     names = filter(regex.search, fnames)
 
@@ -55,11 +55,13 @@ def getSeries(fnames):
             if not season:  # 3 tölur í byrjun strengs
                 season = re.findall(r'^(\d{1})\d{2}\s', fLow)
             if not season:  # 3 tölur í miðju strengs
-                season = re.findall(r'\s(\d{1})\d{2}\s', fLow) 
+                season = re.findall(r'[^\d,x,H](\d{1})\d{2}[^\d,p]', fLow)
+            if not season: # 3 tölur í lok strengs
+                season = re.findall(r'[^\d](\d{1})\d{2}$', fLow) 
             if not season:  # 4 tölur í byrjun strengs
                 season = re.findall(r'^(\d{2})\d{2}\s', fLow)
             if not season:  # 4 tölur í miðju strengs, 0-1 og 0-8 svo 19xx og 20xx ártöl séu ekki mötchuð (því miður má engin sería fara yfir 19 seasons því annars kæmust öll ártöl í gegn)
-                season = re.findall(r'[^\d]([0-1][0-8])\d{2}[^\d|^p]', fLow)
+                season = re.findall(r'[^\d]([0-1][0-8])\d{2}[^\d,p]', fLow)
             if not season:  # season og I+ (Season II)
                 season = re.findall(r'season (i+)', fLow)
                 if season: 
