@@ -43,6 +43,11 @@ def getSeries(fnames):
             show = regex.split(f)[0]
             season = re.findall(r's(\d{1,2})', f.lower())
 
+            if season:
+                season = 'Season ' + season[0]#'Season ' + 
+            else:
+                season = 'Unsorted'
+
             for c in chars:
                 show = show.replace(c, ' ')
                 show = re.sub('  +', ' ', show)
@@ -51,11 +56,24 @@ def getSeries(fnames):
             show = show.title()
             
             if show not in showDic:
-                showDic[show] = [f]
+                showDic[show] = {}
+                if season:
+                    showDic[show][season] = [f]
+                else:
+                    showDic[show] = [f]
             
             elif show in showDic:
-                if f not in showDic[show]:
-                    showDic[show].append(f) 
+                showDic[show]
+                #if season:
+                if season not in showDic[show]:
+                    showDic[show][season] = [f]
+                elif f not in showDic[show][season]:
+                    showDic[show][season].append(f)
+                #else:
+                    #if f not in showDic[show]:
+                    #    showDic[show].append(f) 
+                if f not in showDic[show][season]:
+                    showDic[show][season].append(f) 
 
     dictToTxt(showDic)
 
@@ -89,7 +107,8 @@ def dictToTxt(dicto):
 def listToTxt(listo):
     with open('keyListi.txt', 'w') as file:
         for k in listo:
-            file.write(k + '\n\n')
+            for kk in listo[k]:
+                file.write(k + '>>' + kk + '\n\n')
 
 print(setLists(folder))
 print(getSeries(filenames))
