@@ -219,7 +219,5 @@ gui()
 
 #---Gömul virkni fyrir skriptu án GUI
 #---
-# print(setLists(folder))
-# print(getSeries(filenames))
-# print(makeDirs(getSeries(filenames), target))
-# print(path)
+# setLists(folder)
+# makeDirs(getSeries(filenames), target)
