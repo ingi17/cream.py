@@ -44,7 +44,8 @@ def getSeries(fnames):
             season = re.findall(r's(\d{1,2})', f.lower())
 
             if season:
-                season = 'Season ' + season[0]#'Season ' + 
+                #season = 'Season ' + season[0]
+                season = 'Season ' + "{:02d}".format(int(season[0]))#https://stackoverflow.com/questions/134934/display-number-with-leading-zeros
             else:
                 season = 'Unsorted'
 
