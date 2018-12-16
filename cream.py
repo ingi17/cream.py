@@ -6,6 +6,7 @@ import tkinter
 from tkinter import ttk, filedialog
 from os import walk
 
+#   sys.argv skipanir commentaðar þar sem við ákváðum að henda í eitt stk GUI frekar en að hafa skriptuna með source og target filepath með í skipuninni.
 #folder = sys.argv[1]
 #target = sys.argv[2]
 
@@ -147,6 +148,8 @@ def makeDirs(showDic, target):
                 for i in path:
                     if show in i:
                         try:
+                            #   Move skilar villum á nokkrum ákveðnum skrám sem við því miður gerðum ekki ráð fyrir
+                            #   Forritið virkar villulaust með copy. Ekki guðmund hvers vegna :'(
                             shutil.move(i, dirSeason)
                             #shutil.copy(i, dirSeason) # Copy frekar en move fyrir dev testing
                         except Exception as ex:
