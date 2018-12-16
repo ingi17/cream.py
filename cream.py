@@ -33,7 +33,6 @@ def fileExtensions(file):
 
 def getSeries(fnames):
     showDic = {}
-    seasonNr = 0
     regex = re.compile(r'((s|S)\d{1,2})|(\s\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))|(^|\s)\d{2,3}(\s|[*p])')
     chars = ['.', '-', '[', '_']
     names = filter(regex.search, fnames)
