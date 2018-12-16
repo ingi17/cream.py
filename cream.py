@@ -7,6 +7,7 @@ from tkinter import ttk, filedialog
 from os import walk
 
 #   sys.argv skipanir commentaðar þar sem við ákváðum að henda í eitt stk GUI frekar en að hafa skriptuna með source og target filepath með í skipuninni.
+#   UNCOMMENT FOR python cream.py /path/to/download/folder /path/to/structured/folder
 #folder = sys.argv[1]
 #target = sys.argv[2]
 
@@ -218,6 +219,6 @@ def gui():
 gui()
 
 #---Gömul virkni fyrir skriptu án GUI
-#---
+#--- UNCOMMENT FOR python cream.py /path/to/download/folder /path/to/structured/folder
 # setLists(folder)
 # makeDirs(getSeries(filenames), target)
