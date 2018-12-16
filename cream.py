@@ -3,7 +3,6 @@ import re
 import shutil
 import sys
 from os import walk
-from pathlib import Path, PureWindowsPath
 
 folder = sys.argv[1]
 target = sys.argv[2]
@@ -33,22 +32,49 @@ def fileExtensions(file):
 
 def getSeries(fnames):
     showDic = {}
-    regex = re.compile(r'((s|S)\d{1,2})|(\s\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))|(^|\s)\d{2,3}(\s|[*p])')
+    regex = re.compile(r'((s|S)\d{1,2})|([^\d]\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))|([^\d]\d{3}([^\d|^p]|$))|(([^\d]|^)([0-1][0-8])\d{2}[^\d|^p])|(([^\d]|\d{4})[^\d](\d{1,2})\.\d{1,2}[^\d])')
     chars = ['.', '-', '[', '_']
     names = filter(regex.search, fnames)
 
     for f in names:
         if fileExtensions(f):
-            
+            fLow = f.lower()
             show = regex.split(f)[0]
-            season = re.findall(r's(\d{1,2})', f.lower())
 
-            if season:
-                #season = 'Season ' + season[0]
-                season = 'Season ' + "{:02d}".format(int(season[0]))#https://stackoverflow.com/questions/134934/display-number-with-leading-zeros
-            else:
+            #   Regex if setninga helvíti -
+            #   Ef season talan finnst ekki í fyrsta checki
+            #   þá prufar hann næsta condition o.s.frv.
+                            # S og 1-2 tölur (S02)
+            season = re.findall(r's(\d{1,2})', fLow)
+            if not season:  # season og 1-2 tölur
+                season = re.findall(r'season (\d+)', fLow) 
+            if not season:  # 1-2 tölur x og 1-2 tölur
+                season = re.findall(r'[^\d](\d{1,2})x\d{1,2}[^\d]', fLow) 
+            if not season:  # 1-2 tölur . og 1-2 tölur (02.05)
+                season = re.findall(r'[^\d][^\d](\d{1,2})\.\d{1,2}[^\d]', fLow)
+            if not season:  # 3 tölur í byrjun strengs
+                season = re.findall(r'^(\d{1})\d{2}\s', fLow)
+            if not season:  # 3 tölur í miðju strengs
+                season = re.findall(r'\s(\d{1})\d{2}\s', fLow) 
+            if not season:  # 4 tölur í byrjun strengs
+                season = re.findall(r'^(\d{2})\d{2}\s', fLow)
+            if not season:  # 4 tölur í miðju strengs, 0-1 og 0-8 svo 19xx og 20xx ártöl séu ekki mötchuð (því miður má engin sería fara yfir 19 seasons því annars kæmust öll ártöl í gegn)
+                season = re.findall(r'[^\d]([0-1][0-8])\d{2}[^\d|^p]', fLow)
+            if not season:  # season og I+ (Season II)
+                season = re.findall(r'season (i+)', fLow)
+                if season: 
+                    season[0] = len(season[0])
+
+            #   Að lokum, ef ekkert tjékkið gekk, er skráin flokkuð sem "Unsorted"
+            #   Season talan er formöttuð í tvo stafi (0 bætt við að framan)
+            #   https://stackoverflow.com/questions/134934/display-number-with-leading-zeros
+            if not season:
                 season = 'Unsorted'
+            else:
+                season = 'Season ' + "{:02d}".format(int(season[0]))
 
+            #   Filter special chars úr nafninu
+            #   . _ - og []
             for c in chars:
                 show = show.replace(c, ' ')
                 show = re.sub('  +', ' ', show)
@@ -81,7 +107,6 @@ def makeDirs(showDic):
     for key in showDic:
 
         dirs = target + '/' + key
-
 
         if not os.path.exists(dirs):
             os.makedirs(dirs)
