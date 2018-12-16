@@ -13,6 +13,7 @@ filenames = []
 folders = []
 path = []
 
+#   SetLists nýtir os.walk til að skrá öll filenames, folders og paths í sér lista
 def setLists(folder):
     for (dirpath, dirnames, fnames) in walk(folder):
         filenames.extend(fnames)
@@ -21,6 +22,8 @@ def setLists(folder):
         for file in fnames:
             path.append(os.path.normpath(os.path.join(dirpath, file)))
 
+#   fileExtensions er nýtt með regex til að hunsa allar skráarendingar sem eru ekki mynd eða hljóð file-ar
+#   Auk þess viljum við ekki sample skrár
 def fileExtensions(file):
     if re.search(r'(s|S)ample', file):
         return False
@@ -28,16 +31,22 @@ def fileExtensions(file):
         return True
     return False
 
+    # Gamalt regex sem matchaði endingar sem við vildum ekki.
+    # - Deprecated í stað fyrir regexið fyrir ofan sem matchar aðeins það sem við viljum.
+
     #if re.search(r'.png$|.dat$|.nfo$|.jpg$|.url$|.URL$|.txt$|(s|S)ample', file):
      #   return False
     #return True
 
 def getSeries(fnames):
+    #   showDic = SHOW >>> {'SEASON': ['EPISODE FILENAME']}
     showDic = {}
+    
+    #   Regex til að matcha við _ALLAR HELSTU_ týpur af Season nöfnum í skrám (Season 00, 00x00, S00E00, 00.00)
     regex = re.compile(r'((s|S)\d{1,2})|([^\d]\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))|([^\d,x,H]\d{3}([^\d,^p]|$))|(([^\d]|^)([0-1][0-8])\d{2}[^\d|^p])|(([^\d]|\d{4})[^\d](\d{1,2})\.\d{1,2}[^\d])')
-    #OLD (held ég) regex = re.compile(r'((s|S)\d{1,2})|([^\d]\d{1,2}(x|X)\d{1,2})|((e|E)\d{1,2})|((S|s)eason (\d+|I+))|([^\d]\d{3}([^\d|^p]|$))|(([^\d]|^)([0-1][0-8])\d{2}[^\d|^p])|(([^\d]|\d{4})[^\d](\d{1,2})\.\d{1,2}[^\d])')
-    chars = ['.', '-', '[', '_']
     names = filter(regex.search, fnames)
+
+    chars = ['.', '-', '[', '_']
 
     for f in names:
         if fileExtensions(f):
